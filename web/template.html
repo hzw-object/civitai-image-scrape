@@ -23,9 +23,10 @@
 
         function loadMoreData() {
             var query = document.getElementById('search-box').value;
-            var url = '/page/' + page + (query ? '?search=' + encodeURIComponent(query) : '');
-            console.log();
             var host = "http://"+ window.location.host
+
+            var url = host+'/page/' + page + (query ? '?search=' + encodeURIComponent(query) : '');
+            console.log();
             
             fetch(url)
                 .then(response => response.json())
