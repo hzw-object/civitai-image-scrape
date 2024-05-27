@@ -10,7 +10,7 @@ output_dir = config["DEFAULT"]["OutputDir"]
 nsfw_level = config["DEFAULT"]["NSFWLevel"]
 api_key = config["DEFAULT"]["ApiKey"]
 local_images = config["DEFAULT"]["LocalImages"].lower() == 'true'
-
+cursor = config["DEFAULT"]["Cursor"]
 def save_metadata(item, output_dir):
     item_id = item["id"]
     json_filename = os.path.join(output_dir, f"{item_id}.json")
@@ -38,7 +38,7 @@ def fetch_images(url):
     return response
 
 # Initial URL
-url = f"https://civitai.com/api/v1/images?token={api_key}&limit=100&sort=Most%20Reactions&nsfw={nsfw_level}"
+url = f"https://civitai.com/api/v1/images?token={api_key}&limit=100&sort=Most%20Reactions&nsfw={nsfw_level}&cursor={cursor}"
 
 while url:
     response = fetch_images(url)
