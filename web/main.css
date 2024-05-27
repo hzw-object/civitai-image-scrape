@@ -3,9 +3,9 @@
 }
 
 body {
-  background-color: #f0f0f0;
+  background-color: #fff5e1;
   font-family: Arial, sans-serif;
-  color: #333;
+  color: #5a3e36;
   padding: 1em;
 }
 
@@ -18,9 +18,10 @@ body {
   box-sizing: border-box;
   border: none;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #fce5cd;
   font-size: 1.2em;
   margin-bottom: 1.5em;
+  color: #5a3e36;
 }
 
 .container {
@@ -38,10 +39,16 @@ body {
   align-items: center;
   background: #fff;
   padding: 2em;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   max-width: 40vw;
 }
+
+.img-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
 
 .img-wrapper {
   width: 100%;
@@ -52,8 +59,8 @@ body {
 }
 
 .spinner {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
+  border: 16px solid #ffe5b4;
+  border-top: 16px solid #f08080;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -63,10 +70,10 @@ body {
 
 @keyframes spin {
   0% {
-    transform: rotate(0deg);
+      transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
 
@@ -78,6 +85,8 @@ body {
   margin: auto;
   cursor: pointer;
 }
+
+
 .full-width {
   grid-column: span 4; /* Matches grid setup */
   max-width: 100%;
@@ -102,11 +111,12 @@ body {
 
 .data-value {
   font-weight: normal;
-  background-color: #f0f0f0;
+  background-color: #ffe5b4;
   padding: 0.2em 0.5em;
   border-radius: 4px;
   white-space: pre-wrap;
   word-break: break-word;
+  color: #5a3e36;
 }
 
 .cursor {
@@ -115,16 +125,16 @@ body {
 
 @media (max-width: 768px) {
   .container {
-    grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
   }
 
   .img-container {
-    flex-direction: column;
-    max-width: 90vw;
+      flex-direction: column;
+      max-width: 90vw;
   }
 
   .img-container img {
-    margin-bottom: 2em;
-    margin-right: 0;
+      margin-bottom: 2em;
+      margin-right: 0;
   }
 }

@@ -1,39 +1,37 @@
-# civitai-web-scraper
+# civitai-images-scraper
 
-Scrape Civitai for AI generated images and prompts.
+获取 Civitai AI 生成的图片和提示信息。
 
-## Install
+## 安装
 
-Clone the repo with:
+使用以下命令克隆仓库：
 
-```sh
-git clone https://github.com/hzw-object/civitai-image-scrape.git
-```
+sh
 
-Initialise the python environment:
+`git clone https://github.com/hzw-object/civitai-image-scrape.git`
 
-```sh
-conda create --name civitai-env
-conda activate civitai-env
-pip install -r requirements.txt
-```
+初始化 Python 环境：
 
-Run the following and then update the config values
+sh
 
-```sh
-cp config.example.ini config.ini
-```
+`conda create --name civitai-env conda activate civitai-env pip install -r requirements.txt`
 
-## Usage
+运行以下命令，然后更新配置文件中的值：
 
-Run the script
+sh
 
-```sh
-python scrape_civitai.py
-```
+`cp config.example.ini config.ini`
 
-Run the server
+## 使用方法
 
-```sh
-python server.py
-```
+运行脚本：
+
+sh
+
+`python scrape_civitai.py`
+
+运行服务器：
+
+sh
+
+`python server.py`
