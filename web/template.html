@@ -24,7 +24,9 @@
         function loadMoreData() {
             var query = document.getElementById('search-box').value;
             var url = '/page/' + page + (query ? '?search=' + encodeURIComponent(query) : '');
-
+            console.log();
+            var host = "http://"+ window.location.host
+            
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -36,7 +38,7 @@
                         var cardHTML = `
                         <div class="img-container" id="container-${item.data.id}">
                             <div class="img-wrapper">
-                                <img src="${item.image}" alt="Loading..."
+                                <img src="${host}${item.image}" alt="Loading..."
                                     onclick="toggleShow('data-${item.data.id}', 'container-${item.data.id}')">
                             </div>
                             <div class="json-data" id="data-${item.data.id}" style="display: none;">
