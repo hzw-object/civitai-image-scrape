@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ripped Civitai Images</title>
+    <link rel="stylesheet" type="text/css" href="/web/main.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <input type="text" id="search-box" oninput="debounceSearch()" placeholder="Search...">
+    <div id="image-container" class="container">
+        <!-- Data loads here -->
+    </div>
+    <div id="image-loader"></div>
+    <script>
+        window.onbeforeunload = function () {
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+    <script>
+        var page = 1;
+        var seenIds = new Set();
+
+        function loadMoreData() {
+            var query = document.getElementById('search-box').value;
+            var url = '/page/' + page + (query ? '?search=' + encodeURIComponent(query) : '');
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        if (seenIds.has(item.data.id)) continue;
+                        seenIds.add(item.data.id);
+                        // Construct the HTML for an image card here.
+                        var cardHTML = `
+                        <div class="img-container" id="container-${item.data.id}">
+                            <div class="img-wrapper">
+                                <img src="${item.image}" alt="Loading..."
+                                    onclick="toggleShow('data-${item.data.id}', 'container-${item.data.id}')">
+                            </div>
+                            <div class="json-data" id="data-${item.data.id}" style="display: none;">
+                                <span class="data-label">Prompt:</span>
+                                <code class="data-value cursor" id="code-prompt-${item.data.id}"
+                                    onclick="copyToClipboard('code-prompt-${item.data.id}')">${item.data.meta.prompt}</code>
+                                <span class="data-label">Negative:</span>
+                                <code class="data-value cursor" id="code-negative-${item.data.id}"
+                                    onclick="copyToClipboard('code-negative-${item.data.id}')">${item.data.meta.negativePrompt}</code>
+                                <span class="data-label">NSFW Level:</span>
+                                <code class="data-value">${item.data.nsfwLevel}</code>
+                                <span class="data-label">Size:</span>
+                                <code class="data-value">${item.data.meta.Size}</code>
+                                <span class="data-label">Model:</span>
+                                <code class="data-value">${item.data.meta.Model}</code>
+                                <span class="data-label">Sampler:</span>
+                                <code class="data-value">${item.data.meta.sampler}</code>
+                                <span class="data-label">Steps:</span>
+                                <code class="data-value">${item.data.meta.steps}</code>
+                                <span class="data-label">CFG Scale:</span>
+                                <code class="data-value">${item.data.meta.cfgScale}</code>
+                                <span class="data-label">Seed:</span>
+                                <code class="data-value">${item.data.meta.seed}</code>
+                                <span class="data-label">Link:</span>
+                                <a class="data-value" href="https://civitai.com/images/${item.data.id}">https://civitai.com/images/${item.data.id}</a>
+                            </div>
+                        </div>`;
+                        document.getElementById('image-container').innerHTML += cardHTML;
+                    }
+                    if (data.length < ITEMS_PER_PAGE) {
+                        // No more pages to load
+                        observer.disconnect();
+                    } else {
+                        page++;
+                    }
+                });
+        }
+
+        var searchTimeoutId;
+        function debounceSearch() {
+            if (searchTimeoutId) {
+                clearTimeout(searchTimeoutId);
+            }
+            searchTimeoutId = setTimeout(() => {
+                document.getElementById('image-container').innerHTML = '';
+                seenIds.clear();
+                page = 1;
+                loadMoreData();
+            }, 300);
+        }
+
+        // Load the first page of data when the page is loaded
+        document.addEventListener("DOMContentLoaded", loadMoreData);
+
+        // Setup the Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            // If the loader comes into view, load more data
+            if (entries[0].isIntersecting && page > 1) {
+                loadMoreData();
+            }
+        }, {
+            rootMargin: '1000px',
+        });
+
+        // Observe the loader
+        observer.observe(document.getElementById('image-loader'));
+    </script>
+    <script>
+        function toggleShow(dataId, containerId) {
+            var x = document.getElementById(dataId);
+            var container = document.getElementById(containerId);
+            if (x.style.display === "none") {
+                x.style.display = "grid";
+                container.classList.add('full-width');
+            } else {
+                x.style.display = "none";
+                container.classList.remove('full-width');
+            }
+            var yOffset = -80;
+            var y = container.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+    </script>
+    <script>
+        function copyToClipboard(elementId) {
+            var text = document.getElementById(elementId).innerText;
+            var textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("Copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
