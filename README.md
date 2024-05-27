@@ -8,30 +8,38 @@
 
 sh
 
-`git clone https://github.com/hzw-object/civitai-image-scrape.git`
+```sh
+git clone https://github.com/hzw-object/civitai-image-scrape.git
+```
 
 初始化 Python 环境：
 
 sh
 
-`conda create --name civitai-env conda activate civitai-env pip install -r requirements.txt`
+```sh
+conda create --name civitai-env 
+conda activate civitai-env 
+pip install -r requirements.txt
+```
 
 运行以下命令，然后更新配置文件中的值：
 
-sh
 
-`cp config.example.ini config.ini`
+```sh
+cp config.example.ini config.ini
+```
 
 ## 使用方法
 
 运行脚本：
 
-sh
-
-`python scrape_civitai.py`
+```sh
+python scrape_civitai.py
+```
 
 运行服务器：
 
-sh
 
-`python server.py`
+```sh
+python server.py
+```
