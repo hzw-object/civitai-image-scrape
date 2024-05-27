@@ -7,15 +7,15 @@ Scrape Civitai for AI generated images and prompts.
 Clone the repo with:
 
 ```sh
-git clone https://github.com/ScreamingHawk/civitai-web-scraper.git
+git clone https://github.com/hzw-object/civitai-image-scrape.git
 ```
 
 Initialise the python environment:
 
 ```sh
-py -m venv venv
-.\venv\Scripts\activate
-py -m pip install -r requirements.txt
+conda create --name civitai-env
+conda activate civitai-env
+pip install -r requirements.txt
 ```
 
 Run the following and then update the config values
@@ -29,11 +29,11 @@ cp config.example.ini config.ini
 Run the script
 
 ```sh
-py scrape_civitai.py
+python scrape_civitai.py
 ```
 
 Run the server
 
 ```sh
-py server.py
+python server.py
 ```
