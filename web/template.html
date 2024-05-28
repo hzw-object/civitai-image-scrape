@@ -2,8 +2,150 @@
 <html>
 <head>
     <title>Ripped Civitai Images</title>
-    <link rel="stylesheet"  href="/web/main.css">
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        * {
+  transition: all 0.3s ease;
+}
+
+body {
+  background-color: #fff5e1;
+  font-family: Arial, sans-serif;
+  color: #5a3e36;
+  padding: 1em;
+}
+
+#search-box {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 1em;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 8px;
+  background-color: #fce5cd;
+  font-size: 1.2em;
+  margin-bottom: 1.5em;
+  color: #5a3e36;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2em;
+  width: 90%;
+  margin: auto;
+}
+
+.img-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 2em;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-width: 40vw;
+}
+
+.img-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+
+.img-wrapper {
+  width: 100%;
+}
+
+.full-width .img-wrapper {
+  margin-right: 2em;
+}
+
+.spinner {
+  border: 16px solid #ffe5b4;
+  border-top: 16px solid #f08080;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.img-container img {
+  max-width: 100%;
+  width: 100%;
+  max-height: 50vh;
+  object-fit: contain;
+  margin: auto;
+  cursor: pointer;
+}
+
+
+.full-width {
+  grid-column: span 4; /* Matches grid setup */
+  max-width: 100%;
+}
+
+.full-width img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.json-data {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: auto 1fr;
+}
+
+.data-label {
+  font-weight: bold;
+  margin-right: 1em;
+}
+
+.data-value {
+  font-weight: normal;
+  background-color: #ffe5b4;
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #5a3e36;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .container {
+      grid-template-columns: 1fr;
+  }
+
+  .img-container {
+      flex-direction: column;
+      max-width: 90vw;
+  }
+
+  .img-container img {
+      margin-bottom: 2em;
+      margin-right: 0;
+  }
+}
+    </style>
 </head>
 <body>
     <input type="text" id="search-box" oninput="debounceSearch()" placeholder="Search...">
