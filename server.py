@@ -52,6 +52,7 @@ def index():
 
 @app.route('/page/<int:page_number>')
 def paginate(page_number):
+    load_image_data()
     search_term = request.args.get('search', '')
 
     start_index = ITEMS_PER_PAGE * (page_number - 1)
