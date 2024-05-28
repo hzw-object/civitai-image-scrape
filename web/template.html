@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Ripped Civitai Images</title>
-    <link rel="stylesheet" type="text/css" href="/web/main.css">
+    <link rel="stylesheet"  href="/web/main.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
@@ -23,15 +23,14 @@
 
         function loadMoreData() {
             var query = document.getElementById('search-box').value;
-            var host = "http://"+ window.location.host
+            var host = "http://" + window.location.host;
 
-            var url = host+'/page/' + page + (query ? '?search=' + encodeURIComponent(query) : '');
+            var url = host + '/page/' + page + (query ? '?search=' + encodeURIComponent(query) : '');
             console.log(url);
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    for (var i = 0; i < data.length; i++) {
+            $.get(url, function(response) {
+                const data = response
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
                         var item = data[i];
                         if (seenIds.has(item.data.id)) continue;
                         seenIds.add(item.data.id);
@@ -75,7 +74,13 @@
                     } else {
                         page++;
                     }
-                });
+            })
+            
+            // fetch(url)
+            //     .then(response => response.json())
+            //     .then(data => {
+                  
+            //     });
         }
 
         var searchTimeoutId;
@@ -92,7 +97,7 @@
         }
 
         // Load the first page of data when the page is loaded
-        document.addEventListener("DOMContentLoaded", loadMoreData);
+        loadMoreData()
 
         // Setup the Intersection Observer
         const observer = new IntersectionObserver((entries) => {
