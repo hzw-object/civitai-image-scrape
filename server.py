@@ -40,6 +40,8 @@ def load_image_data():
             else:
                 image = json_data["url"]
             data.append({'image': image, 'data': json_data})
+    print(f"{data} 数据")
+    
     print(f"{len(data)} 条图像数据已加载!")
 
 @app.route('/')
