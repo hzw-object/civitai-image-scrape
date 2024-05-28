@@ -1,6 +1,6 @@
 # civitai-images-scraper
 
-获取 Civitai AI 生成的图片和提示信息。
+获取 Civitai AI 生成的图片和提示信息。[获取结果展示](http://47.94.82.9:57005/)
 
 ## 安装
 
