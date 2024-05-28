@@ -41,8 +41,6 @@ def load_image_data():
             else:
                 image = json_data["url"]
             data.append({'image': image, 'data': json_data})
-    print(f"{data} 数据")
-    
     print(f"{len(data)} 条图像数据已加载!")
 
 @app.route('/')
@@ -56,8 +54,9 @@ def paginate(page_number):
     search_term = request.args.get('search', '')
 
     start_index = ITEMS_PER_PAGE * (page_number - 1)
+    print(f"{ITEMS_PER_PAGE} 数据")
     end_index = start_index + ITEMS_PER_PAGE
-
+    print(f"{data} 数据")
     if search_term:
         # 根据搜索词过滤数据
         filtered_data = [item for item in data if search_term.lower() in json.dumps(item['data']).lower()]
