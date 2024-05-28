@@ -89,8 +89,10 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                     self.send_response(200)
                     if path.endswith('.json'):
                         self.send_header('Content-type', 'application/json')
+
                     elif path.endswith('.css'):
                         self.send_header('Content-type', 'text/css')
+                        self.send_header('Access-Control-Allow-Origin', '*')
                     self.end_headers()
                     self.wfile.write(f.read())
             except FileNotFoundError:
