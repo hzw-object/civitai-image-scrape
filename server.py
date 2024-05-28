@@ -22,6 +22,7 @@ def load_image_data():
     global data
     data = []
     for root, dirs, files in os.walk(output_dir):
+        
         jsons = [f for f in files if f.endswith('.json')]
         random.shuffle(jsons)
         for json_file in jsons:
