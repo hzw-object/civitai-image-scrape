@@ -45,6 +45,7 @@ def load_image_data():
 
 @app.route('/')
 def index():
+    print(f"{len(data)} 条图像数据已加载!")
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('web/template.html')
     return render_template(template)
