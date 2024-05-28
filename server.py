@@ -83,4 +83,4 @@ def serve_static_files(filename):
 
 if __name__ == '__main__':
     load_image_data()
-    app.run(port=PORT)
+    app.run(debug=True)
