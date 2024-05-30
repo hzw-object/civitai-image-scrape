@@ -165,3 +165,4 @@ config.ini
 # Output
 out
 out-*
+generated
