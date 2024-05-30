@@ -3,9 +3,11 @@ import json
 import requests
 import base64
 import glob
-
+import configparser
+config = configparser.ConfigParser()
+config.read("config.ini")
 # Stable Diffusion API URL
-api_url = "http://47.94.82.9:57003/sdapi/v1/txt2img"
+api_url = config["DEFAULT"]["ApiUrl"]
 
 # Directory pattern to match all JSON files in subdirectories
 json_pattern = "./out/*/*.json"
@@ -18,15 +20,18 @@ os.makedirs(output_dir, exist_ok=True)
 
 # Function to call Stable Diffusion API
 def call_stable_diffusion_api(metadata, output_filename):
+    if metadata is None:
+        print(f"Metadata is None for {output_filename}. Skipping.")
+        return
     payload = {
-        "prompt": metadata["prompt"],
-        "negative_prompt": metadata["negativePrompt"],
+        "prompt": metadata.get("prompt",""),
+        "negative_prompt": metadata.get("negativePrompt",""),
         "width": int(metadata["Size"].split('x')[0]),
         "height": int(metadata["Size"].split('x')[1]),
-        "steps": metadata["steps"],
-        "cfg_scale": metadata["cfgScale"],
-        "sampler": metadata["sampler"],
-        "seed": metadata["seed"],
+        "steps": metadata.get("steps",30),
+        "cfg_scale": metadata.get("cfgScale",7),
+        "sampler": metadata.get("sampler","Euler a"),
+        "seed": metadata.get("seed",-1),
     }
 
     headers = {
